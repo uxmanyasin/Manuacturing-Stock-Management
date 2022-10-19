@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="BizBook.CashPayments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BizBook"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="white">
+        <TabControl Margin="0" Background="GhostWhite">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#344955" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="Gray" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Cash In     " FontSize="18" FontFamily="Franklin gothic" Foreground="GhostWhite" Background="Black" >
+                <Border  Background="White" CornerRadius="40" Margin="10" Width="400" Height="400">
+                    <StackPanel VerticalAlignment="Top"
+					HorizontalAlignment="Center"
+					TextBlock.TextAlignment="Center"
+					Margin="5">
+
+
+                        <TextBlock Text="Select Customer"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955"  Width="140" Margin="10,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2">
+                            <ComboBox TabIndex="4"
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" 
+                                                 
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="CustomerCombo" MouseEnter="CustomerCombo_MouseEnter" >
+                            </ComboBox>
+                        </Border>
+                        <!---->
+                        <TextBlock 
+					   Text="Description"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="100" Margin="10,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="35">
+                            <TextBox x:Name="txtDesc"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0" TextChanged="txtDesc_TextChanged"/>
+                        </Border>
+                        <!---->
+                        <TextBlock 
+					   Text="Amount"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="100" Margin="0,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="35">
+                            <TextBox x:Name="txtAmount"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+					   Text="Hold Amount"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Margin="10"/>
+                            <ToggleButton Height="40" Foreground="#F9AA33"></ToggleButton>
+
+                        </StackPanel>
+                        <TextBlock 
+					   Text="Date"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="75" Margin="0,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="40">
+                            <DatePicker x:Name="DatePicker" Margin="5" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border BorderThickness="0" Background="#344955" Height="27" Margin="50,25,50,0" CornerRadius="15">
+                            <Button x:Name="btnSaveCashIN"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Cash In" Click="btnSaveCashIN_Click"
+					Height="27" 
+					Margin="0"  Background="Transparent" Width="133"
+                            />
+                        </Border>
+                    </StackPanel>
+
+                </Border>
+
+
+            </TabItem>
+            <TabItem Header="Cash Out   " x:Name="SaleReport" Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite"  >
+                <Border  Background="White" CornerRadius="40" Margin="10" Width="400" Height="400">
+                    <StackPanel VerticalAlignment="Top"
+					HorizontalAlignment="Center"
+					TextBlock.TextAlignment="Center"
+					Margin="5">
+
+
+                        <TextBlock Text="Select Supplier"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955"  Width="130" Margin="10,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2">
+                            <ComboBox TabIndex="4"
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" 
+                                                 
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="SupplierCombo" MouseEnter="SupplierCombo_MouseEnter" >
+                            </ComboBox> 
+                        </Border>
+                        <!---->
+                        <TextBlock 
+					   Text="Description"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="100" Margin="10,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="35">
+                            <TextBox x:Name="txtDescsupplier"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                        </Border>
+                        <!---->
+                        <TextBlock 
+					   Text="Amount"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="100" Margin="0,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="35">
+                            <TextBox x:Name="txtAmountsupplier"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                        </Border>
+                        <TextBlock 
+					   Text="Date"
+					   HorizontalAlignment="Left"
+					   Foreground="#344955" Height="20" Width="100" Margin="0,20,0,0"/>
+                        <Border Background="GhostWhite"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,2,2,2"
+					Width="215" Height="40">
+                            <DatePicker x:Name="DatePickersupplier" Margin="5" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border BorderThickness="0" Background="#344955" Height="27" Margin="50,25,50,0" CornerRadius="15">
+                            <Button x:Name="btnSaveCashOut"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Cash Out" Click="btnSaveCashOut_Click"
+					Height="27" 
+					Margin="0"  Background="Transparent" Width="133"
+                            />
+                        </Border>
+                    </StackPanel>
+
+                </Border>
+
+
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+</UserControl>

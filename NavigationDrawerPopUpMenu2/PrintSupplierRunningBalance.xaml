@@ -1,0 +1,16 @@
+﻿<Window x:Class="BizBook.PrintSupplierRunningBalance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer"
+      
+        xmlns:local="clr-namespace:BizBook"
+        mc:Ignorable="d"
+        Title="Supplier Payables Print" Height="450" Width="800" Loaded="Window_Loaded" WindowState="Maximized">
+    <Grid>
+        <my:CrystalReportsViewer HorizontalAlignment="Stretch"  Name="crystalReportsViewer1"
+                                 VerticalAlignment="Top" Height="auto" Width="auto" />
+
+    </Grid>
+</Window>

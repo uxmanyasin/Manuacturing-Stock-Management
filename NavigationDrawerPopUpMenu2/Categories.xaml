@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="BizBook.Categories"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BizBook"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" >
+    <Grid  Background="GhostWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnNewCategory"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="New Category"
+					Height="Auto" Click="btnNewCategory_Click"
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+        </Grid>
+        <DataGrid  Name="CategoryListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=productlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+           
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Sr.No" Binding="{Binding Path=No}" IsReadOnly="True" Width="70"/>
+                <DataGridTextColumn Header="Category Name" Binding="{Binding Path=Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                <Button x:Name="btnUpdate"  Click="btnUpdate_Click" Background="Transparent" Content="Update" BorderThickness="0" Foreground="GhostWhite"></Button>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border Grid.Row="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+            <Button x:Name="btnLoadAllCategories"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand" Click="btnLoadAllCategories_Click"
+					Content="Load All" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+        </Border>
+
+    </Grid>
+</UserControl>

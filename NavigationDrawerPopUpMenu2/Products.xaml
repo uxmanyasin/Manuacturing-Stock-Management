@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="BizBook.Products"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NavigationDrawerPopUpMenu2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid  Background="GhostWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnNewProduct"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="New Product"
+					Height="Auto" Click="BtnNewProduct_Click"
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+            <Border Grid.Column="1" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                <Label Content="Select Product" Foreground="#344955" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"></Label>
+            </Border>
+            <Border Grid.Column="2" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" MouseEnter="ProductCombo_MouseEnter"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="ProductCombo">
+
+
+                </ComboBox>
+            </Border>
+            <Border Grid.Column="3" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnSearchProducts"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Search"
+					Height="Auto" Click="BtnSearchProducts_Click"
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+           
+        </Grid>
+        <DataGrid  Name="ProductListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=productlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Sr.No" Binding="{Binding Path=No}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Path=Category}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Product Name" Binding="{Binding Path=Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Rate" Binding="{Binding Path=Rate}" IsReadOnly="True" Width="*"/>
+                
+                   
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                <Button x:Name="btnUpdate" Click="BtnUpdate_Click" Background="Transparent" Content="Update" BorderThickness="0" Foreground="GhostWhite"></Button>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border Grid.Row="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+            <Button x:Name="btnLoadAllProducts"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Load All" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" Click="BtnLoadAllProducts_Click"
+					Margin="0"  Background="Transparent"
+                            />
+        </Border>
+
+    </Grid>
+</UserControl>

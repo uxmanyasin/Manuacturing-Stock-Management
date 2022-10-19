@@ -1,0 +1,462 @@
+﻿<UserControl x:Class="BizBook.Reports"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:BizBook"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TabControl Margin="0" BorderBrush="Black" Background="GhostWhite">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#344955" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="Gray" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Balance Sheet    "  x:Name="nameCompanyLedger"  Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite" >
+                <Grid  Background="GhostWhite">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="413*"/>
+                        <ColumnDefinition Width="381*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <Label Content="Date Range" Foreground="#344955" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"></Label>
+                        </Border>
+                        <Border Grid.Column="1" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="CompanyFromDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="2" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="CompanyToDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="3" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="BtnCompanySearch"
+                                    
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Search"
+					Height="Auto" Click="BtnCompanySearch_Click"
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        
+
+                    </Grid>
+                    <DataGrid  Name="CompanyLedgerListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,1,0,4"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=companyledgerlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Customer" Binding="{Binding Path=Customer}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supplier}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="AcceptsReturn" Value="true" />
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Credit" Binding="{Binding Path=Credit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Debit" Binding="{Binding Path=Debit}" IsReadOnly="True" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Border Grid.Row="2" Grid.ColumnSpan="2" Background="White" Margin="10,3" CornerRadius="20">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="170"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Foreground="#344955" Content="Total Credit"  Grid.Column="0"></Label>
+                            <Label Foreground="Black" x:Name="lblCompanyTotalCredit"  Grid.Column="1"></Label>
+                            <Label Foreground="#344955" Content="Total Debit"  Grid.Column="2"></Label>
+                            <Label Foreground="Black" x:Name="lblCompanyTotalDebit"  Grid.Column="3"></Label>
+                            <Label Foreground="#344955" Margin="20,0,0,0" x:Name="lblBalanceTitle"  Content="Running Balance"  Grid.Column="4"></Label>
+                            <Label Foreground="Black" x:Name="lblCompanyBalance" Grid.Column="5"></Label>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Supplier Ledger    " x:Name="SupplierLedger"  Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite" >
+                <Grid  Background="GhostWhite">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="413*"/>
+                        <ColumnDefinition Width="381*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="5" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="BtnSupplierPrint"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Print" Click="BtnSupplierPrint_Click"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Border Grid.Column="6" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnSuuplierLedgerExport"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Export to Excel" 
+					Height="Auto" Click="btnSuuplierLedgerExport_Click"
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Border Grid.Column="0" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <Label Content="Supplier" Foreground="#344955" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"></Label>
+                        </Border>
+                        <Border Grid.Column="1" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <ComboBox
+                                      IsTextSearchEnabled="True" MouseEnter="SupplierLedgerCombo_MouseEnter" 
+                                      IsEditable="True"  SelectionChanged="SupplierLedgerCombo_SelectionChanged"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="SupplierLedgerCombo">
+
+
+                            </ComboBox>
+                        </Border>
+                        <Border Grid.Column="2" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="SupplierFromDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="3" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="SupplierToDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="4" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="BtnSupplierDateBetweenLedger"
+                                    Click="BtnSupplierDateBetweenLedger_Click"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Search"
+					Height="Auto"
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Button x:Name="btnSupplierRefresh"
+                    BorderThickness="0" Grid.Column="7"
+					Foreground="GhostWhite"
+					Cursor="Hand" Margin="7,12"
+					 Click="btnSupplierRefresh_Click"
+					Height="Auto" 
+					  Background="#344955">
+                            <materialDesign:PackIcon Kind="Refresh" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" RenderTransformOrigin="-0.068,0.808" />
+                        </Button>
+
+
+                    </Grid>
+                    <DataGrid  Name="SupplierLedgerListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=supplierledgerlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date , StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Bill No" Binding="{Binding Path=BillNo}" Visibility="Hidden" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="AcceptsReturn" Value="true" />
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Rate" Binding="{Binding Path=Rate}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Debit" Binding="{Binding Path=Debit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Credit" Binding="{Binding Path=Credit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Acc. Balance" Binding="{Binding Path=Balance}" IsReadOnly="True" Width="*" FontSize="16" FontWeight="Bold"/>
+                            <DataGridTemplateColumn Header="Details" Width="1.3*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#344955" CornerRadius="20" BorderThickness="0" >
+                                            <Button x:Name="btnGridCheckPurchase" Click="btnGridCheckPurchase_Click" Background="Transparent" Content="Details" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Payment" Width="1.3*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#344955" CornerRadius="20" BorderThickness="0" >
+                                            <Button x:Name="btnGridSupplierPaymentDelete" Click="btnGridSupplierPaymentDelete_Click" Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Border Grid.Row="2" Grid.ColumnSpan="2" Background="White" Margin="10,3" CornerRadius="20">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Foreground="#344955" Margin="20,0,0,0" Content="Total Credit:" Grid.Row="0" Grid.Column="0"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalPurchase" Grid.Row="0" Grid.Column="1"></Label>
+                            <Label Foreground="#344955" Content="Total Debit" Grid.Row="0" Grid.Column="2"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalCashOut" Grid.Row="0" Grid.Column="3"></Label>
+                            <Label Foreground="#344955" Content="Running Balance" Grid.Row="1" Grid.Column="2"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalBalance" Grid.Row="1" Grid.Column="3"></Label>
+
+                            <Label Foreground="#344955" Content="Previous Balance" Grid.Row="1" Grid.Column="0"></Label>
+                            <Label Foreground="Black" x:Name="lblSuppierPreviousBalance" Grid.Row="1" Grid.Column="1" Content="0"></Label>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Customer Ledger    " x:Name="CustomerLedger"  Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite" >
+                <Grid  Background="GhostWhite">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="79*"/>
+                        <ColumnDefinition Width="715*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="5" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="BtnCustomerPrint"
+                    BorderThickness="0" Click="BtnCustomerPrint_Click"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Print"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Border Grid.Column="0" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <Label Content="Customer" Foreground="#344955" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"></Label>
+                        </Border>
+                        <Border Grid.Column="1" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True"  SelectionChanged="CustomerLedgerCombo_SelectionChanged" MouseEnter="CustomerLedgerCombo_MouseEnter"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="CustomerLedgerCombo">
+                                       
+
+                            </ComboBox>
+                        </Border>
+                        <Border Grid.Column="2" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="CustomerFromDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="3" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                            <DatePicker x:Name="CustomerToDatePicker" Margin="5,0" Foreground="#344955"></DatePicker>
+                        </Border>
+
+                        <Border Grid.Column="4" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="BtnCustomerSearchDateBetween"
+                                    Click="BtnCustomerSearchDateBetween_Click"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Search"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Border Grid.Column="6" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnCustomerLedgerExport"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand" Click="btnCustomerLedgerExport_Click"
+					Content="Export to Excel" 
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+                        </Border>
+                        <Button x:Name="btnCustomerRefresh"
+                    BorderThickness="0" Grid.Column="7"
+					Foreground="GhostWhite"
+					Cursor="Hand" Margin="7,12"
+					Click="btnCustomerRefresh_Click"
+					Height="Auto" 
+					  Background="#344955">
+                            <materialDesign:PackIcon Kind="Refresh" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" RenderTransformOrigin="-0.068,0.808" />
+                        </Button>
+                    </Grid>
+                    <DataGrid  Name="CustomerLedgerListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=customerledgerlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date , StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Bill No" Binding="{Binding Path=BillNo}" Visibility="Hidden" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" Width="*">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="AcceptsReturn" Value="true" />
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Rate" Binding="{Binding Path=Rate}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Debit" Binding="{Binding Path=Debit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Credit" Binding="{Binding Path=Credit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Acc. Balance" Binding="{Binding Path=Balance}" IsReadOnly="True" Width="*" FontSize="16"  FontWeight="Bold"/>
+                            <DataGridTemplateColumn Header="Details" Width="1.3*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#344955" CornerRadius="20" BorderThickness="0" >
+                                            <Button x:Name="btnGridCheckSales" Click="btnGridCheckSales_Click"   Background="Transparent" Content="Details" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Payment" Width="1.3*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#344955" CornerRadius="20" BorderThickness="0" >
+                                            <Button x:Name="btnGridDeleteCustomerPayment" Click="btnGridDeleteCustomerPayment_Click"    Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border Background="White" CornerRadius="20" Margin="10,3" Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Margin="20,0,0,0" Foreground="#344955" Content="Total Debit:" Grid.Row="0" Grid.Column="0"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalSale" Grid.Row="0" Grid.Column="1"></Label>
+                            <Label Foreground="#344955" Content="Total Credit" Grid.Row="0" Grid.Column="2"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalCashIn" Grid.Row="0" Grid.Column="3"></Label>
+                            <Label Foreground="#344955" Content="Running Balance" Grid.Row="1" Grid.Column="2"></Label>
+                            <Label Foreground="Black" x:Name="lblTotalBalances" Grid.Row="1" Grid.Column="3"></Label>
+                            <Label Foreground="#344955" Content="Previous Balance" Grid.Row="1" Grid.Column="0"></Label>
+                            <Label Foreground="Black" x:Name="lblCustomerPreviousBalance" Grid.Row="1" Grid.Column="1" Content="0"></Label>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </TabItem>
+    </TabControl>
+
+    </Grid>
+</UserControl>

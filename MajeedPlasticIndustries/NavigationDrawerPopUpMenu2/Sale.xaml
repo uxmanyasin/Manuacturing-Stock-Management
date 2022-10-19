@@ -1,0 +1,672 @@
+﻿<UserControl x:Class="BizBook.Sale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+             xmlns:local="clr-namespace:NavigationDrawerPopUpMenu2"
+             mc:Ignorable="d" Width="auto" Height="auto">
+    <Grid>
+        <TabControl Margin="0" BorderBrush="Black">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#344955" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="Gray" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="New Sale     " FontSize="18" FontFamily="Franklin gothic" Foreground="GhostWhite" Background="Black" Height="50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Background="GhostWhite">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="220"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0" CornerRadius="20" Background="White" Margin="10">
+                            <StackPanel Orientation="Vertical">
+
+                                <Label Content="Customer Details" HorizontalContentAlignment="Center" Margin="5" Foreground="#344955" FontFamily="Franklin gohtic" FontSize="14" ></Label>
+                                <TextBlock Text="Customer Name" Foreground="#344955" Margin="12,7,3,3" FontSize="14"></TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="45">
+                                        <ComboBox TabIndex="4"
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" 
+                                             SelectionChanged="CustomerCombo_SelectionChanged_1"     
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="CustomerCombo" MouseEnter="CustomerCombo_MouseEnter" MouseLeave="CustomerCombo_MouseLeave">
+                                        </ComboBox>
+                                    </Border>
+                                    <Button x:Name="btnAddCustomer" Grid.Column="1" Background="#344955" BorderThickness="0" HorizontalContentAlignment="Stretch" Height="Auto"  Margin="0,0,13,0" Click="BtnAddCustomer_Click">
+                                        <materialDesign:PackIcon Kind="Plus" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" RenderTransformOrigin="-0.068,0.808" />
+                                    </Button>
+                                </Grid>
+                                <TextBlock Text="Walking Customer" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+
+                                <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                    <TextBox x:Name="txtcustomername"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                                
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="1" CornerRadius="20" Background="White" Margin="10">
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Product Details" HorizontalContentAlignment="Center" Margin="5" Foreground="#344955" FontFamily="Franklin gohtic" FontSize="14" ></Label>
+                                <TextBlock Text="Select Category" Foreground="#344955" Margin="12,7,3,3" FontSize="14"></TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="40">
+                                        <ComboBox TabIndex="6"
+                                            IsTextSearchEnabled="True" 
+                                            MouseEnter="CategoryCombobox_MouseEnter" 
+                                            DisplayMemberPath="Name"  SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="CategoryCombobox" >
+                                        </ComboBox>
+                                    </Border>
+                                    <Button  x:Name="btnAddCategory" Click="btnAddCategory_Click" Grid.Column="2" Background="#344955" BorderThickness="0" HorizontalContentAlignment="Stretch" Height="Auto" Margin="0,0,13,0" >
+                                        <materialDesign:PackIcon Kind="Plus" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" RenderTransformOrigin="-0.068,0.808" />
+                                    </Button>
+                                </Grid>
+                                <TextBlock Text="Select Product" Foreground="#344955" Margin="12,7,3,3" FontSize="14"></TextBlock>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="60"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="40">
+                                        <ComboBox TabIndex="6"
+                                            IsTextSearchEnabled="True" 
+                                            IsEditable="True" 
+                                            SelectionChanged="ProductCombo_SelectionChanged_1"
+                                            DisplayMemberPath="Name"   SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="ProductCombo" MouseEnter="ProductCombo_MouseEnter">
+                                        </ComboBox>
+                                    </Border>
+                                    <Button Click="BtnAddProduct_Click" x:Name="btnAddProduct" Grid.Column="2" Background="#344955" BorderThickness="0" HorizontalContentAlignment="Stretch" Height="Auto" Margin="0,0,13,0" >
+                                        <materialDesign:PackIcon Kind="Plus" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0" RenderTransformOrigin="-0.068,0.808" />
+                                    </Button>
+                                </Grid>
+                                <TextBlock Text="Price" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+
+                                <Border  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                    <TextBox  x:Name="txtPrice" TextChanged="txtPrice_TextChanged" Text="1" FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                                <TextBlock Text="Quantity" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+
+                               
+                                <Border  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35"  Width="auto" >
+                                    <TextBox x:Name="txtQTY" Text="1"  MouseLeave="TextBox_MouseLeave" TextWrapping="Wrap"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                              
+                                <TextBlock Text="In Hand" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                <Border  IsEnabled="False"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                    <Label x:Name="txtInHand" Content="0" FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="40" Margin="50,15,50,0" CornerRadius="15">
+                                    <Button x:Name="btnToList" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Add to List" Height="Auto" Margin="0"  Background="Transparent" Click="BtnToList_Click"/>
+                                </Border>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="1" Background="GhostWhite">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="320"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <!--Product List-->
+                        <Border Grid.Row="0" CornerRadius="20" Background="White" Margin="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="55"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Content="Product List" HorizontalContentAlignment="Center" Margin="5" Foreground="#344955" FontFamily="Franklin gohtic" FontSize="14" ></Label>
+                                <DataGrid   Name="ProductCartGrid"  
+                                           Grid.Row="1"    
+                                           AutoGenerateColumns="False"    
+                                           Margin="10,5,0,0"    
+                                           Height="auto"    
+                                           Width="auto"    
+                                           HorizontalAlignment="Left"       
+                                           CanUserResizeRows="False"    
+                                           CanUserAddRows="False" 
+                                           CellEditEnding="ProductCartGrid_CellEditEnding"
+                                           ItemsSource="{Binding Path=SaleDetailsList}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Path=ProductId}" x:Name="colID" Header="ID"  IsReadOnly="True" Width="*" Visibility="Hidden"/>
+                                        <DataGridTextColumn Binding="{Binding Path=ProductName}" x:Name="colName" Header="Name"  IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Binding="{Binding Path=Price}" x:Name="colPrice" Header="Price"  IsReadOnly="False" Width="*"/>
+                                        <DataGridTextColumn Binding="{Binding Path=Quantity}" x:Name="colQty" Header="Quantity" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Binding="{Binding Path=Total}" x:Name="colTotal" Header="Total"  IsReadOnly="False" Width="*" />
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#344955" CornerRadius="20" BorderThickness="0" Width="auto">
+                                                        <Button x:Name="btnRemove" Click="btnRemove_Click"  Background="Transparent" Content="Remove" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Border Grid.Row="2" BorderThickness="0" Background="#344955" Height="40" Margin="50,0,50,0" CornerRadius="15">
+                                    <Button Click="OrderDone_Click" x:Name="OrderDone" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Generate Summary" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                         <!--Product List-->
+                        <!--Order Summary-->
+                        <Border Grid.Row="1" CornerRadius="20" Background="White" Margin="10">
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Sale Summary" HorizontalContentAlignment="Center" Margin="5" Foreground="#344955" FontFamily="Franklin gohtic" FontSize="14" ></Label>
+                                <Grid Height="180">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                        <RowDefinition Height="25"></RowDefinition>
+                                        <RowDefinition Height="35"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Total Amount" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                    <Border Grid.Row="1" Grid.Column="0"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <Label x:Name="LblTotalAmount"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                    </Border>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Total Products" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                    <Border Grid.Row="3" Grid.Column="0"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <Label x:Name="lblTotalProducts"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                    </Border>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Total Quantity" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                    <Border Grid.Row="3" Grid.Column="1"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <Label x:Name="lblTotalQuantity"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                    </Border>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Bill Date" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Cash for Walking Customer" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Gate Pass" Foreground="#344955" Margin="12,3,3,3" FontSize="14"></TextBlock>
+
+                                    <Border Grid.Row="5" Grid.Column="1"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <TextBox x:Name="txtCash"   FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                    </Border>
+                                    <Border Grid.Row="5" Grid.Column="0"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <TextBox x:Name="txtGatePass" Text="S-0000"   FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="1"  Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                        <DatePicker x:Name="SaleDatePicker" Foreground="#344955" Height="auto" Margin="10,0,10,0"></DatePicker>
+
+                                    </Border>
+                                  
+                                                                   </Grid>
+                                <Grid Height="30"></Grid>
+                                <Border Grid.Row="1" Grid.Column="0" BorderThickness="0" Background="#344955" Margin="10,0" CornerRadius="15" Height="40">
+                                    <Button x:Name="btnSaveSale"  Click="BtnSaveSale_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Save" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+
+                            </StackPanel>
+                        </Border>
+                        <!--Order Summary-->
+                    </Grid>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Sale Report   " x:Name="SaleReport" Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite" Initialized="SaleReport_Initialized" >
+                <Grid Height="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--Side Search Panel-->
+                    <StackPanel Grid.Column="0" Height="auto" Background="GhostWhite">
+                        
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Search By Gate Pass" Foreground="#344955" FontSize="16" Margin="18,8,0,0"></TextBlock>
+                                <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                    <TextBox x:Name="txtSaleID"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="btnSearchByID" Click="btnSearchByID_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Search" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                                
+                            </StackPanel>
+                        </Border>
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="80" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Customer" Foreground="#344955" FontSize="16" Margin="18,8,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <ComboBox TabIndex="4"
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" 
+                                      x:Name="SearchCustomerCombo"
+                                      MouseEnter="SearchCustomerCombo_MouseEnter_1" SelectionChanged="SearchCustomerCombo_SelectionChanged"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955">
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+
+                        <!--by Date-->
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <DatePicker x:Name="SearchSaleDatePicker" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchDateSales" Click="SearchDateSales_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="By Date" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                        <!--By Month-->
+                        <!--Date Between-->
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="230" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date Range" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="DateFrom" Text="Date From" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+                                
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="DateTo" Foreground="#344955" Margin="8" Text="dsad"></DatePicker>
+                                </Border>
+
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchDateBetween" Click="SearchDateBetween_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Date Between" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="30,10,30,10" CornerRadius="15">
+                                    <Button x:Name="SpecificSearchDateBetween" Click="SpecificSearchDateBetween_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Specific Customer" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    <!--Side SEarch Panel-->
+                    <!--List Panel-->
+                    <Grid Grid.Column="1">
+                        <Grid x:Name="Header">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0" Background="#344955" Height="40" Margin="50,10,50,10" CornerRadius="15">
+                                <Button Click="BtnLoadAll_Click" x:Name="btnLoadAll" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Load All" Height="Auto" Margin="0"  Background="Transparent"/>
+                            </Border>
+                            <Grid Grid.Row="1" Background="GhostWhite">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid  Name="SalesListView"    
+Grid.Row="0"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=SalesList}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Bill Date" Binding="{Binding Path=SaleDate , StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Gate Pass" Binding="{Binding Path=GatePass}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Customer" Binding="{Binding Path=customers.Name}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Total Products" Binding="{Binding Path=TotalProducts}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Total Quantity" Binding="{Binding Path=TotalQuantity}" IsReadOnly="True" Width="*"/>
+
+                                        <DataGridTextColumn Header="Total" Binding="{Binding Path=TotalPrice}" IsReadOnly="True" Width="*"/>
+          
+                                        <DataGridTemplateColumn Header=" Details">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                                        <Button x:Name="btnGridDetails" Click="BtnGridDetails_Click"  Background="Transparent" Content="Details" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header=" Delete">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="RoyalBlue"  CornerRadius="20" BorderThickness="0">
+                                                        <Button x:Name="btnGridDelete" Click="btnGridDelete_Click_1" Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid Grid.Row="1" Background="GhostWhite">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="15" Background="white" Margin="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Margin="20,0,10,0" Content="Total Sales" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                            <Label x:Name="LblTotalSales"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" CornerRadius="15" Background="white" Margin="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Margin="20,0,10,0" Content="Total Amount" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                            <Label x:Name="LblTAmount"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                                        </StackPanel>
+                                    </Border>
+
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <!--List Panel-->
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Walking Sale Report   " x:Name="WalkingSaleReport" Initialized="WalkingSaleReport_Initialized" Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite"  >
+                <Grid Height="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--Side Search Panel-->
+                    <StackPanel Grid.Column="0" Height="auto" Background="GhostWhite">
+                        
+                    <!--    <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Customer" Foreground="LightSlateGray" FontSize="16" Margin="18,8,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <ComboBox TabIndex="4"
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" 
+                                      x:Name="SearchwalkingCustomerCombo"
+                                              
+                                                                           DisplayMemberPath="CustomerName"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="Teal" MouseEnter="SearchwalkingCustomerCombo_MouseEnter">
+                                    </ComboBox>
+                                </Border>
+                                <Border BorderThickness="0" Background="Teal" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchwalkingCustomerSales" Click="SearchwalkingCustomerSales_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Search" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>-->
+                        <!--by Date--> 
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <DatePicker x:Name="SearchwalkingSaleDatePicker" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchDatewalkingSales" Click="SearchDatewalkingSales_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="By Date" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!--Date Between-->
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="190" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date Range" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="walkingDateFrom" Text="Date From" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="walkingDateTo" Foreground="#344955" Margin="8" Text="dsad"></DatePicker>
+                                </Border>
+
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchwalkingDateBetween" Click="SearchwalkingDateBetween_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Date Between" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    <!--Side SEarch Panel-->
+                    <!--List Panel-->
+                    <Grid Grid.Column="1">
+                        <Grid x:Name="walkingHeader">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" BorderThickness="0" Background="#344955" Height="40" Margin="50,10,50,10" CornerRadius="15">
+                                <Button  x:Name="btnLoadAllwalking" Click="btnLoadAllwalking_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Load All" Height="Auto" Margin="0"  Background="Transparent"/>
+                            </Border>
+                            <Grid Grid.Row="1" Background="GhostWhite">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <DataGrid  Name="walkingSalesListView"    
+Grid.Row="0"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=SalesList}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Gate Pass" Binding="{Binding Path=GatePass}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Customer" Binding="{Binding Path=CustomerName}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Bill Date" Binding="{Binding Path=SaleDate , StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Total" Binding="{Binding Path=TotalPrice}" IsReadOnly="True" Width="*"/>
+                                    
+
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                                        <Button x:Name="btnwalkingGridDetails" Click="btnwalkingGridDetails_Click"   Background="Transparent" Content="Details" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Background="RoyalBlue" CornerRadius="20" BorderThickness="0">
+                                                        <Button x:Name="btnwalkingGridDelete" Click="btnwalkingGridDelete_Click_1"   Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn> 
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <Grid Grid.Row="1" Background="GhostWhite">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" CornerRadius="15" Background="white" Margin="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Margin="20,0,10,0" Content="Total Sales" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                            <Label x:Name="LblTotalwalkinglSales"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" CornerRadius="15" Background="white" Margin="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Margin="20,0,10,0" Content="Total Amount" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                            <Label x:Name="LblwalkingTAmount"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                                        </StackPanel>
+                                    </Border>
+
+
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <!--List Panel-->
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Product Sales   " x:Name="ProductsSales" Initialized="WalkingSaleReport_Initialized" Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite"  >
+                <Grid  Background="GhostWhite">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                       
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="40">
+                            <ComboBox TabIndex="6"
+                                            IsTextSearchEnabled="True" 
+                                            IsEditable="True" Text="Product"
+                                            MouseEnter="ProductSalesCombo_MouseEnter" SelectionChanged="ProductSalesCombo_SelectionChanged"
+                                            DisplayMemberPath="Name"   SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="ProductSalesCombo" >
+                            </ComboBox>
+                        </Border>
+                        <Border Grid.Column="1" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="40">
+                            <ComboBox TabIndex="6"
+                                            IsTextSearchEnabled="True" 
+                                            IsEditable="True" Text="Customer"
+                                            DisplayMemberPath="Name" MouseEnter="ComboSalesCustomer_MouseEnter"  SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="ComboSalesCustomer" >
+                            </ComboBox>
+                        </Border>
+
+                        <Border Grid.Column="3" Background="White" CornerRadius="13" Padding="1,1,1,1" Margin="10" Height="auto">
+                                <DatePicker x:Name="_DateFromSaleDatePicker" Text="Date From" Foreground="#344955" Margin="0"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="4" Background="White" CornerRadius="13" Padding="1,1,1,1" Margin="10" Height="auto">
+                                <DatePicker  x:Name="_DateToSaleDatePicker" Text="Date To" Foreground="#344955" Margin="0"></DatePicker>
+                        </Border>
+
+                        <Border Grid.Column="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnCustomerSales" Click="btnCustomerSales_Click"   BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Specific Customer" Height="Auto" Margin="0"  Background="Transparent" />
+                        </Border>
+                        <Border Grid.Column="5" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnSearchDateBetweenWiseSales" Click="btnSearchDateBetweenWiseSales_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Search Range" Height="Auto" Margin="0"  Background="Transparent" />
+                        </Border>
+                        <Border Grid.Column="6" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnSearchProducDateBetweentWiseSales" Click="btnSearchProducDateBetweentWiseSales_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Product Range" Height="Auto" Margin="0"  Background="Transparent"/>
+                        </Border>
+
+
+                    </Grid>
+                    <DataGrid  Name="SalesProductListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=SalesProductlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Path=SaleDate}" IsReadOnly="True" Width="95"/>
+                            <DataGridTextColumn Header="Customer" Binding="{Binding Path=sale.customers.Name}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Product Name" Binding="{Binding Path=product.Name}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Rate" Binding="{Binding Path=Rate}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Total" Binding="{Binding Path=Total}" IsReadOnly="True" Width="*"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="2" Background="GhostWhite">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+                        <Border Background="White" CornerRadius="13" Padding="1,1,1,1" Margin="10" Height="auto">
+                                <DatePicker SelectedDateChanged="_SaleDatePicker_SelectedDateChanged" x:Name="_SaleDatePicker" Text="Date From" Foreground="#344955" Margin="0"></DatePicker>
+                        </Border>
+                        <Border Grid.Column="1" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnSingleSearchProductWiseSales" Click="btnSingleSearchProductWiseSales_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Specific Date" Height="Auto" Margin="0"  Background="Transparent" />
+                        </Border>
+                        <Border Grid.Column="3" CornerRadius="15" Background="white" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="20,0,10,0" Content="Total Quantity" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                <Label x:Name="lblTotalQuantityProduct"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" CornerRadius="15" Background="white" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="20,0,10,0" Content="Total Sales" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                <Label x:Name="LblProductTotalSales"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="4" CornerRadius="15" Background="white" Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="20,0,10,0" Content="Total Amount" HorizontalAlignment="Right" VerticalAlignment="Center"></Label>
+                                <Label x:Name="LblProductTAmount"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Black"></Label>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="5" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                            <Button x:Name="btnProductCustomerRange" Click="btnProductCustomerRange_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Customer-Product-Range" Height="Auto" Margin="0"  Background="Transparent" />
+                        </Border>
+
+
+                    </Grid>
+
+                </Grid>
+
+            </TabItem>
+         
+        </TabControl>
+
+    </Grid>
+</UserControl>

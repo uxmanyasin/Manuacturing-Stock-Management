@@ -1,0 +1,203 @@
+﻿<UserControl x:Class="BizBook.BankCheques"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BizBook"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Initialized="UserControl_Initialized">
+    <Grid  Background="GhostWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                
+
+
+            </Grid.ColumnDefinitions>
+           
+            <Border Grid.Column="0" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnNewCheque"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"  Click="btnNewCheque_Click"
+					Content="New Cheque" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+
+
+            <Border Grid.Column="1" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnLoadPendingCheques"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"  Click="btnLoadPendingCheques_Click"
+					Content="Pending" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+
+            <Border Grid.Column="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnLoadCompletedCheques"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"  Click="btnLoadCompletedCheques_Click"
+					Content="Completed" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+            <Border Grid.Column="3" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnLoadAllCheques"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"  Click="btnLoadAllCheques_Click"
+					Content="All" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+
+        </Grid>
+        <Grid Grid.Row="1" Background="#344955" Margin="5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Total Cheques:" Foreground="GhostWhite" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+            <Label Grid.Column="1" x:Name="lblTotalCheques"  FontSize="16" FontWeight="Bold" Foreground="GhostWhite" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"></Label>
+            <Label Grid.Column="2" Content="Total Amount:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="GhostWhite" ></Label>
+            <Label Grid.Column="3"  Foreground="GhostWhite" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="lblTotalAmount"></Label>
+        </Grid>
+        <DataGrid  Name="ChequesListView"    
+Grid.Row="2"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=productlist}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Customer" Binding="{Binding Path=customers.Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Cash Date" Binding="{Binding Path=CashDate}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Cheque Number" Binding="{Binding Path=ChequeNumber}" IsReadOnly="True" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Path=Amount}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="AcceptsReturn" Value="true" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="Cash" Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                <Button x:Name="btnUpdate"  Background="Transparent" Content="Cash In" Click="btnUpdate_Click" BorderThickness="0" Foreground="GhostWhite"></Button>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="auto" Header="Edit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                <Button x:Name="btnEditCheque" Click="btnEditCheque_Click"  Background="Transparent" Content="Edit Cheque" BorderThickness="0" Foreground="GhostWhite"></Button>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="auto" Header="Delete Cheque">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                <Button x:Name="btnDelete" Click="btnDelete_Click"  Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="3" Background="GhostWhite" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                <ColumnDefinition Width="0.7"></ColumnDefinition>
+                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+
+            <Border Background="White"
+					CornerRadius="13"
+					Padding="1,1,1,1"
+					Margin="2,0,2,0" Grid.Column="0"
+					Width="auto" Height="auto">
+                <StackPanel  Orientation="Vertical">
+                    <TextBlock 
+					   Text="Single Date" FontWeight="Bold" FontSize="15"   
+					   Foreground="#344955" Height="auto" Width="auto" HorizontalAlignment="Center"/>
+                    <DatePicker x:Name="SearchSpecificPicker" Foreground="#344955" Margin="8"></DatePicker>
+
+                </StackPanel>
+            </Border>
+        
+            <Border Grid.Column="1" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnSearchSingleDate"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand" Click="btnSearchSingleDate_Click"
+					Content="Dated Search" FontSize="20" FontFamily="Franklin Gothic"
+					Height="Auto" 
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+            <Border Grid.Column="2" Background="White" CornerRadius="15" Margin="10" BorderThickness="0">
+                <Label Content="Search By Customer" Foreground="#344955" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto"></Label>
+            </Border>
+            <Border Grid.Column="4" Background="White" CornerRadius="15" Margin="5" BorderThickness="0">
+                <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" MouseEnter="CustomerCombo_MouseEnter" SelectionChanged="CustomerCombo_SelectionChanged"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="CustomerCombo">
+
+
+                </ComboBox>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

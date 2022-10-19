@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="BizBook.Inventory"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NavigationDrawerPopUpMenu2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="GhostWhite">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Background="White" CornerRadius="15" Margin="10">
+                <Label Content="Select Product" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Franklin Gothic" FontSize="18" Foreground="#344955"></Label>
+            </Border>
+            <Border Grid.Column="1" Background="White" Margin="10" CornerRadius="20">
+                <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" MouseEnter="ProductCombo_MouseEnter" SelectionChanged="ProductCombo_SelectionChanged"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="ProductCombo">
+
+
+                </ComboBox>
+            </Border>
+            <Border Grid.Column="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnStockIn"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Stock In"
+					Height="Auto" Click="btnStockIn_Click"
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+            <Border Grid.Column="3" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+                <Button x:Name="btnStockOut"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Stock Out"
+					Height="Auto" Click="btnStockOut_Click"
+					Margin="0"  Background="Transparent"
+                            />
+            </Border>
+
+            <Border Grid.Column="4" Background="White" CornerRadius="20" Margin="10">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Total Products" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Foreground="#344955"></Label>
+                    <Label   HorizontalAlignment="Center" x:Name="LbltotalProducts" Foreground="Black" FontSize="16"></Label>
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="5" Margin="10" CornerRadius="20" Background="White">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Total Quantity" HorizontalAlignment="Center" Foreground="#344955"  HorizontalContentAlignment="Center"></Label>
+                    <Label x:Name="LblTotalQuantity"  Foreground="Black" FontSize="16" HorizontalAlignment="Center"></Label>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <DataGrid  Name="InventoryListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=inventoryList}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Path=product.category.Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Product" Binding="{Binding Path=product.Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="In Hand" Binding="{Binding Path=Quantity}" IsReadOnly="True" Width="*"/>
+               
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Border Grid.Row="2" BorderThickness="0" Background="#344955" Height="auto" Margin="10" CornerRadius="15">
+            <Button x:Name="BtnLoadInentory"
+                    BorderThickness="0"
+					Foreground="GhostWhite"
+					Cursor="Hand"
+					Content="Load All"
+					Height="Auto" Click="BtnLoadInentory_Click"
+					Margin="0" FontSize="20" FontFamily="Franklin Gothic"  Background="Transparent"
+                            />
+        </Border>
+    </Grid>
+</UserControl>

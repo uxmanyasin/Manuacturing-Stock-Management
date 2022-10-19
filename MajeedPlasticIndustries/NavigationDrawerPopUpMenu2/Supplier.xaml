@@ -1,0 +1,299 @@
+﻿<UserControl x:Class="BizBook.Supplier"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+             xmlns:local="clr-namespace:NavigationDrawerPopUpMenu2"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="GhostWhite">
+        <TabControl Margin="0" BorderBrush="Black" Background="GhostWhite" SelectionChanged="TabControl_SelectionChanged">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="#344955" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="Gray" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Supplier     " FontSize="18" FontFamily="Franklin gothic" Foreground="GhostWhite" Background="Black" Height="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0" Background="#344955" CornerRadius="20" Margin="10" >
+                            <Button x:Name="btnNewSupplier" Click="BtnNewSupplier_Click" FontSize="20" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="New Supplier" Height="Auto" Margin="0"  Background="Transparent"/>
+                        </Border>
+                        <Border Grid.Column="1" Background="White" CornerRadius="20" Margin="10">
+                            <Label Content="Select Supplier" Foreground="#344955" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        </Border>
+                        <Border Grid.Column="2" Background="White" CornerRadius="20" Margin="10">
+                            <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" MouseEnter="SupplierCombo_MouseEnter" SelectionChanged="SupplierCombo_SelectionChanged"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="SupplierCombo">
+
+
+                            </ComboBox>
+                        </Border>
+                        <Border Grid.Column="3" Background="#344955" CornerRadius="20" Margin="10" >
+                            <Button x:Name="btnPrintSupplier" Click="btnPrintSupplier_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Print" Height="Auto" Margin="0"  Background="Transparent" FontSize="20"/>
+                        </Border>
+                        <Border Grid.Column="4"  Background="#344955" CornerRadius="20" Margin="10">
+                            <Button x:Name="BtnLoadSuppliers" Click="BtnLoadSuppliers_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Load All" Height="Auto" Margin="0"  Background="Transparent" FontFamily="Franklin Gothic" FontSize="20"/>
+                        </Border>
+
+                    </Grid>
+                    <DataGrid  Name="SuppliersListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="10,5,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=RunningBalancesList}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Contact" Binding="{Binding Path= Contact}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Debit Balance" Binding="{Binding Path= DebitBalance}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Credit Balance" Binding="{Binding Path= CreditBalance}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Total Debit" Binding="{Binding Path= Sales}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Total Credit" Binding="{Binding Path= Credit}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Running Balance" Binding="{Binding Path= RunningBalance}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Open Date" Binding="{Binding Path=Date ,StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="95"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                            <Button x:Name="btnGridUpdate" Click="BtnGridUpdate_Click" Background="Transparent" Content="Update" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                        </Border>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="2" Background="#344955" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Total Purchase:" Foreground="GhostWhite" FontSize="14" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"></Label>
+                        <Label Grid.Column="1" x:Name="lblTotalPurchase"  FontSize="16" FontWeight="Bold" Foreground="GhostWhite" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                        <Label Grid.Column="2" Content="Total Cash-Outs:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="GhostWhite" ></Label>
+                        <Label Grid.Column="3"  Foreground="GhostWhite" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="lblTotalCashOuts"></Label>
+                        <Label Grid.Column="4" Content="Total Running Balance:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" Foreground="GhostWhite" ></Label>
+                        <Label Grid.Column="5"  Foreground="GhostWhite" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" x:Name="lblTotalRunningBalance"></Label>
+                    </Grid>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Payments    " x:Name="CashOutTab" Initialized="CashOutTab_Initialized" Height="50" FontSize="18" FontFamily="Franklin Gothic" Foreground="GhostWhite" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Height="auto" Background="GhostWhite">
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Search By ID" Foreground="#344955" FontSize="16" Margin="18,8,0,0"></TextBlock>
+                                <Border Grid.Column="0" Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="8,2,8,2" Height="35" >
+                                    <TextBox x:Name="txtPaymentID"  FontSize="14" HorizontalContentAlignment="Stretch" VerticalAlignment="Center" FontFamily="Gothic" Foreground="SlateGray" Margin="8,0,8,0"  BorderBrush="Transparent" Background="Transparent" BorderThickness="0"/>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="btnSearchbyID" Click="btnSearchbyID_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Search" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+
+
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Supplier" Foreground="#344955" FontSize="16" Margin="18,8,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <ComboBox
+                                      IsTextSearchEnabled="True" 
+                                      IsEditable="True" MouseEnter="SupplierCashOutCombo_MouseEnter"
+                                      DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="5" Background="Transparent" Foreground="#344955" x:Name="SupplierCashOutCombo">
+
+
+                                    </ComboBox>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="BtnCashOutSupplier" Click="BtnCashOutSupplier_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Search" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                        <!--by Date-->
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="120" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,2,5,2" Height="auto">
+                                    <DatePicker x:Name="DatePicker" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchDate" Click="SearchDate_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="By Date" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                        <!--By Month-->
+                        <!--Date Between-->
+                        <Border Background="White" BorderThickness="0" CornerRadius="20" Height="230" Margin="10">
+                            <StackPanel Orientation="Vertical" Height="auto">
+                                <TextBlock Text="Select Date Range" Foreground="#344955" FontSize="16" Margin="18,7,0,0"></TextBlock>
+                                
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="DateFrom" Text="Date From" Foreground="#344955" Margin="8"></DatePicker>
+                                </Border>
+
+                                <Border Background="GhostWhite" CornerRadius="13" Padding="1,1,1,1" Margin="7,7,5,2" Height="auto">
+                                    <DatePicker x:Name="DateTo" Foreground="#344955" Margin="8" Text="dsad"></DatePicker>
+                                </Border>
+
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="50,10,50,10" CornerRadius="15">
+                                    <Button x:Name="SearchDateBetween" Click="SearchDateBetween_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Date Between" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                                <Border BorderThickness="0" Background="#344955" Height="30" Margin="30,10,30,10" CornerRadius="15">
+                                    <Button x:Name="SearchSpecificDateBetween" Click="SearchSpecificDateBetween_Click"  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Specific Supplier" Height="Auto" Margin="0"  Background="Transparent"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="70"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="180"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="180"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="White" CornerRadius="20" Margin="10">
+                                <Label Content="Total Cash-In" Foreground="#344955" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            </Border>
+                            <Border Grid.Column="1" Background="White" CornerRadius="20" Margin="10">
+                                <Label x:Name="LblTotalCashIn" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>  
+                            </Border>
+                            <Border Grid.Column="2" Background="White" CornerRadius="20" Margin="10">
+                                <Label Content="Total Cash-Out" Foreground="#344955" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            </Border>
+                            <Border Grid.Column="3" Background="White" CornerRadius="20" Margin="10">
+                                <Label x:Name="LblTotalCashOut" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                            </Border>
+
+                            <Border Grid.Column="4" Background="#344955" CornerRadius="20" Margin="10">
+                                <Button  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Cash-Out" Height="Auto" Margin="0"  Background="Transparent" x:Name="btnNewCashOut" Click="BtnNewCashOut_Click"/>
+                            </Border>
+                            <Border Grid.Column="5" Background="#344955" CornerRadius="20" Margin="10">
+                                <Button  BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Cash-In" Height="Auto" Margin="0"  Background="Transparent" x:Name="btnNewCashIn" Click="btnNewCashIn_Click" />
+                            </Border> 
+
+                        </Grid>
+                        <DataGrid  Name="CashOutListView"    
+Grid.Row="1"    
+AutoGenerateColumns="False"    
+Margin="0,0,0,0"    
+Height="auto"    
+Width="auto"    
+HorizontalAlignment="Left"    
+ItemsSource="{Binding Path=CashOutList}"    
+CanUserResizeRows="False"    
+CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Supplier" Binding="{Binding Path=Supplier}" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Date" Binding="{Binding Path=Date , StringFormat=\{0:dd-MM-yyyy\}}" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Cash In" Binding="{Binding Path= Credit}" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Cash Out" Binding="{Binding Path= Debit}" IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextWrapping" Value="Wrap" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                    <DataGridTextColumn.EditingElementStyle>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="TextWrapping" Value="Wrap" />
+                                            <Setter Property="AcceptsReturn" Value="true" />
+                                        </Style>
+                                    </DataGridTextColumn.EditingElementStyle>
+                                </DataGridTextColumn>
+
+
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                                <Button x:Name="btnGridDetails" Click="btnGridDetails_Click"  Background="Transparent" Content="Edit" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#344955" CornerRadius="20" BorderThickness="0">
+                                                <Button x:Name="btnGridDelete" Click="BtnGridDelete_Click"   Background="Transparent" Content="Delete" BorderThickness="0" Foreground="GhostWhite"></Button>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Border Grid.Row="2" Background="#344955" CornerRadius="20" Margin="10">
+                            <Button x:Name="LoadCashOuts" Click="LoadCashOuts_Click" BorderThickness="0" Foreground="GhostWhite" Cursor="Hand" Content="Load All" Height="Auto" Margin="0"  Background="Transparent" FontFamily="Franklin Gothic" FontSize="20"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+            </TabItem>
+          
+
+        </TabControl>
+
+    </Grid>
+</UserControl>
